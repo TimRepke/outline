@@ -97,7 +97,10 @@ router.get(
     // and spending the token before the user clicks on it. Instead we redirect
     // to the same URL with the follow query param added from the client side.
     if (!follow) {
-      return ctx.redirectOnClient(`${ctx.request.href}&follow=true`);
+      return ctx.redirectOnClient(
+        `${env.URL}/auth/email.callback?token=${token}&follow=true&client=${client}`
+      );
+      // return ctx.redirectOnClient(`${ctx.request.href}&follow=true`);
     }
 
     let user!: User;
