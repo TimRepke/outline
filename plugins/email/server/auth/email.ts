@@ -97,7 +97,7 @@ router.get(
     // and spending the token before the user clicks on it. Instead we redirect
     // to the same URL with the follow query param added from the client side.
     if (!follow) {
-      return ctx.redirectOnClient(ctx.request.href + "&follow=true");
+      return ctx.redirectOnClient(`${ctx.request.href}&follow=true`);
     }
 
     let user!: User;
@@ -105,16 +105,16 @@ router.get(
     try {
       user = await getUserForEmailSigninToken(token as string);
     } catch (err) {
-      ctx.redirect(`/?notice=expired-token`);
+      ctx.redirect(`${env.URL}/?notice=expired-token`);
       return;
     }
 
     if (!user.team.emailSigninEnabled) {
-      return ctx.redirect("/?notice=auth-error");
+      return ctx.redirect(`${env.URL}/?notice=auth-error`);
     }
 
     if (user.isSuspended) {
-      return ctx.redirect("/?notice=user-suspended");
+      return ctx.redirect(`${env.URL}/?notice=user-suspended`);
     }
 
     if (user.isInvited) {
