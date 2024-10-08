@@ -596,7 +596,10 @@ export const pinDocumentToCollection = createAction({
 
     const collection = stores.collections.get(activeCollectionId);
 
-    if (!collection || !location.pathname.startsWith(collection?.url)) {
+    if (
+      !collection ||
+      !location.pathname.startsWith(env.BASENAME + collection?.url)
+    ) {
       toast.success(t("Pinned to collection"));
     }
   },
@@ -632,7 +635,7 @@ export const pinDocumentToHome = createAction({
 
     await document?.pin();
 
-    if (location.pathname !== homePath()) {
+    if (location.pathname !== env.BASENAME + homePath()) {
       toast.success(t("Pinned to home"));
     }
   },
@@ -782,7 +785,8 @@ export const searchDocumentsForQuery = (searchQuery: string) =>
     section: DocumentSection,
     icon: <SearchIcon />,
     perform: () => history.push(searchPath(searchQuery)),
-    visible: ({ location }) => location.pathname !== searchPath(),
+    visible: ({ location }) =>
+      location.pathname !== env.BASENAME + searchPath(),
   });
 
 export const moveTemplateToWorkspace = createAction({
@@ -1012,7 +1016,7 @@ export const permanentlyDeleteDocumentsInTrash = createAction({
       content: (
         <DeleteDocumentsInTrash
           onSubmit={stores.dialogs.closeAllModals}
-          shouldRedirect={location.pathname === trashPath()}
+          shouldRedirect={location.pathname === env.BASENAME + trashPath()}
         />
       ),
     });

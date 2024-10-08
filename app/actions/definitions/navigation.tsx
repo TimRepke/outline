@@ -41,7 +41,7 @@ export const navigateToHome = createAction({
   shortcut: ["d"],
   icon: <HomeIcon />,
   perform: () => history.push(homePath()),
-  visible: ({ location }) => location.pathname !== homePath(),
+  visible: ({ location }) => location.pathname !== env.BASENAME + homePath(),
 });
 
 export const navigateToRecentSearchQuery = (searchQuery: SearchQuery) =>
@@ -59,7 +59,7 @@ export const navigateToDrafts = createAction({
   section: NavigationSection,
   icon: <DraftsIcon />,
   perform: () => history.push(draftsPath()),
-  visible: ({ location }) => location.pathname !== draftsPath(),
+  visible: ({ location }) => location.pathname !== env.BASENAME + draftsPath(),
 });
 
 export const navigateToArchive = createAction({
@@ -69,7 +69,7 @@ export const navigateToArchive = createAction({
   shortcut: ["g", "a"],
   icon: <ArchiveIcon />,
   perform: () => history.push(archivePath()),
-  visible: ({ location }) => location.pathname !== archivePath(),
+  visible: ({ location }) => location.pathname !== env.BASENAME + archivePath(),
 });
 
 export const navigateToTrash = createAction({
@@ -78,7 +78,7 @@ export const navigateToTrash = createAction({
   section: NavigationSection,
   icon: <TrashIcon />,
   perform: () => history.push(trashPath()),
-  visible: ({ location }) => location.pathname !== trashPath(),
+  visible: ({ location }) => location.pathname !== env.BASENAME + trashPath(),
 });
 
 export const navigateToSettings = createAction({

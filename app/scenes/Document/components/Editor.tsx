@@ -23,6 +23,7 @@ import MentionMenuExtension from "~/editor/extensions/MentionMenu";
 import PasteHandler from "~/editor/extensions/PasteHandler";
 import PreventTab from "~/editor/extensions/PreventTab";
 import SmartText from "~/editor/extensions/SmartText";
+import env from "~/env";
 import useCurrentTeam from "~/hooks/useCurrentTeam";
 import useCurrentUser from "~/hooks/useCurrentUser";
 import useFocusedComment from "~/hooks/useFocusedComment";
@@ -130,7 +131,9 @@ function DocumentEditor(props: Props, ref: React.RefObject<any>) {
   const handleClickComment = React.useCallback(
     (commentId: string) => {
       history.replace({
-        pathname: window.location.pathname.replace(/\/history$/, ""),
+        pathname: window.location.pathname
+          .replace(/\/history$/, "")
+          .replace(env.BASENAME, ""),
         state: { commentId },
       });
     },
@@ -157,7 +160,9 @@ function DocumentEditor(props: Props, ref: React.RefObject<any>) {
       comments.add(comment);
 
       history.replace({
-        pathname: window.location.pathname.replace(/\/history$/, ""),
+        pathname: window.location.pathname
+          .replace(/\/history$/, "")
+          .replace(env.BASENAME, ""),
         state: { commentId },
       });
     },

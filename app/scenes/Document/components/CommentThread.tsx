@@ -17,6 +17,7 @@ import Flex from "~/components/Flex";
 import { ResizingHeightContainer } from "~/components/ResizingHeightContainer";
 import Typing from "~/components/Typing";
 import { WebsocketContext } from "~/components/WebsocketProvider";
+import env from "~/env";
 import useCurrentUser from "~/hooks/useCurrentUser";
 import useOnClickOutside from "~/hooks/useOnClickOutside";
 import usePersistedState from "~/hooks/usePersistedState";
@@ -106,7 +107,9 @@ function CommentThread({
     history.replace({
       // Clear any commentId from the URL when explicitly focusing a thread
       search: "",
-      pathname: location.pathname.replace(/\/history$/, ""),
+      pathname: location.pathname
+        .replace(/\/history$/, "")
+        .replace(env.BASENAME, ""),
       state: { commentId: thread.id },
     });
   };
